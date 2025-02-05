@@ -12,11 +12,11 @@ int len(char proposition[]);
 
 int verif(char mot[],char proposition[],int taille);
 /*verifie si le mot proposer est le bon*/
-void indice_majuscule(char mot[],char proposition[],int taille);
+void indice_majuscule(char mot[],char proposition[],int taille,char indice[]);
 /*indique si la lettre est au bonne endroit en majuscule*/
-void indice_minuscule(char mot[],char proposition[],int taille);
+void indice_minuscule(char mot[],char proposition[],int taille,char indice[]);
 /*indique si la lettre est dans le mot mais est pas au bonne endroit en minuscule */
-
+void affiche_indice(char indice[]);
 
 int main()
 {
@@ -30,9 +30,10 @@ int main()
 	int taille_mot_deviner=len(mot1);
 	
 	char proposition[taille_mot_deviner];
+	char indice[taille_mot_deviner];
 	
 	while(v==0 && nombre_essaies!=7){
-		scanf("%s",&proposition);
+		scanf(" %s",&proposition);
 		taille_proposition=len(proposition);
 		
 		if(taille_proposition>taille_mot_deviner){
@@ -43,9 +44,10 @@ int main()
 			if(v==1){
 				printf("\x1b[38;5;82m c'est le bon mot! Felicitations !!!\n");
 			}else{
-				indice_majuscule(mot1,proposition,taille_mot_deviner);
-				printf("\n");
-				indice_minuscule(mot1,proposition,taille_mot_deviner);
+				
+				indice_minuscule(mot1,proposition,taille_mot_deviner,indice);
+				indice_majuscule(mot1,proposition,taille_mot_deviner,indice);
+				affiche_indice(indice);
 				printf("\n");
 				printf("réessayer\n");
 				printf("\n");	
@@ -55,7 +57,7 @@ int main()
 	}
 	
 	if(nombre_essaies==7){
-		printf("domage le mot etait : %s ",mot1);
+		printf("domage le mot etait : %s \n",mot1);
 	}
 	
 	return 0;
@@ -111,20 +113,18 @@ int len(char proposition[])
 	return i;
 }
 
-void indice_majuscule(char mot[],char proposition[],int taille)
+void indice_majuscule(char mot[],char proposition[],int taille,char indice[])
 {
 	int i;
 	
 	for(i = 0;i < taille;i = i+1){
 		if(mot[i] == proposition[i]){
-			printf("%c ",proposition[i]-'a'+'A');
-		}else {
-			printf("_ ");
+			indice[i]=proposition[i]-'a'+'A';
 		}
 	}
 }
 
-void indice_minuscule(char mot[],char proposition[],int taille)
+void indice_minuscule(char mot[],char proposition[],int taille,char indice[])
 {
 	
 	int i,y,z;
@@ -139,10 +139,18 @@ void indice_minuscule(char mot[],char proposition[],int taille)
 		}
 		
 		if(z==1){
-			printf("%c ",proposition[i]);
+			indice[i]=proposition[i];
 		}else{
-			printf("_ ");
+			indice[i]='_';
 		}
 		
+	}
+}
+
+void affiche_indice(char indice[]){
+	int i;
+	
+	for(i=0;indice[i]!='\0';i++){
+		printf("%c",indice[i]);
 	}
 }
