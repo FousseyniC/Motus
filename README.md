@@ -1,7 +1,3 @@
-Voici un exemple de README en français pour le programme que tu m'as fourni :
-
----
-
 # 🎯 **Jeu Motus** : Trouve le Mot Mystère !
 
 Bienvenue dans **Jeu Motus**, une implémentation du célèbre jeu de devinettes de mots. Teste tes compétences en découvrant le mot mystère en un minimum d’essais ! 🎉
